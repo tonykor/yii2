@@ -217,7 +217,7 @@ class Table extends Object
             $columns[] = ArrayHelper::getColumn($this->_rows, $i);
             array_push($columns[$i], $this->_headers[$i]);
         }
-        $encoding = array_fill(0, count($columns), Yii::$app->charset);
+        $encoding = array_fill(0, count($columns[0]), Yii::$app->charset);
         foreach ($columns as $column) {
             $columnWidth = max(array_map('mb_strwidth', $column, $encoding)) + 2;
             $this->_columnWidths[] = $columnWidth;
