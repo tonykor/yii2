@@ -104,15 +104,12 @@ class Table extends Object
     }
     
     /**
-    * Set table chars
+    * Set screen width
     *
-    * @param array $chars table chars
+    * @param int $width screen width 
     * @return $this
     */
     public function setScreenSize($width){
-        if (!$width){
-            $width=Console::getScreenSize()[0];
-        }
         $this->_screenSize=$width;
         return $this;
     }
@@ -259,7 +256,7 @@ class Table extends Object
    
     protected function getScreenSize(){
         if (!$this->_screenSize){
-            $this->setScreenSize();
+           $this->_screenSize=Console::getScreenSize()[0];
         }
         return $this->_screenSize;
     }
