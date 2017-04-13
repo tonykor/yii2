@@ -64,6 +64,8 @@ class Table extends Object
      * @var array table column widths
      */
     private $_columnWidths = [];
+    
+    private $_screenSize;
 
     /**
      * Set table headers
@@ -98,6 +100,20 @@ class Table extends Object
     public function setChars(array $chars)
     {
         $this->_chars = $chars;
+        return $this;
+    }
+    
+    /**
+    * Set table chars
+    *
+    * @param array $chars table chars
+    * @return $this
+    */
+    public function setScreenSize($width){
+        if (!$width){
+            $width=Console::getScreenSize()[0];
+        }
+        $this->_screenSize=$width;
         return $this;
     }
 
@@ -211,7 +227,7 @@ class Table extends Object
     {
         $this->_columnWidths = $columns = [];
         $totalWidth = 0;
-        $screenWidth = Console::getScreenSize()[0] - 3;
+        $screenWidth = $this->screenSize - 3;
 
         for ($i = 0, $size = count($this->_headers); $i < $size; $i++) {
             $columns[] = ArrayHelper::getColumn($this->_rows, $i);
@@ -235,5 +251,16 @@ class Table extends Object
                 $totalWidth -= $this->_columnWidths[$j];
             }
         }
+    }
+    
+    /**
+    * Getting screen size
+    */
+   
+    protected function getScreenSize(){
+        if (!$this->_screenSize){
+            $this->setScreenSize();
+        }
+        return $this->_screenSize;
     }
 }
