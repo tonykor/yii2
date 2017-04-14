@@ -166,9 +166,10 @@ class Table extends Object
     protected function renderRows(array $row, $spanLeft, $spanMiddle, $spanRight)
     {
         $size = $this->_columnWidths;
+        $encoding = array_fill(0, count($row), Yii::$app->charset);
         $rowsPerCell = array_map(function ($size, $columnWidth) {
             return ceil($columnWidth / ($size - 2));
-        }, $size, array_map('mb_strwidth', $row));
+        }, $size, array_map('mb_strwidth', $row, $encoding));
 
         $buffer = '';
 
